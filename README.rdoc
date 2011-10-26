@@ -1,0 +1,33 @@
+=coffee-guard-caat-jessie
+
+==About
+
+Kickstart HTML5 game project bundling CAAT, CoffeeScript, Jessie and Guard.
+
+Why use such set of tools?
+
+* CAAT is one very cool portable javascript framework (https://github.com/hyperandroid/CAAT).
+* CoffeeScript is a way of making JavaScript concise (http://jashkenas.github.com/coffee-script/).
+* Jessie allows to run Jasmine specs in console (https://github.com/futuresimple/jessie) and Jasmine is a nice BDD framework for JavaScript (http://pivotal.github.com/jasmine/).
+* Guard (https://github.com/guard/guard) auto-generates JavaScript files from CoffeeScript and auto-runs Jasmine specs through Jessie.
+* It's efficient!
+
+==Usage
+
+Dependencies: bundler gem, gems defined in the Gemfile, coffee-script local node package, jessie global node package; install with:
+
+    1. gem install bundler
+    2. bundle install
+    3. npm install coffee-script
+    4. npm install -g jessie
+
+Workflow:
+
+    1. cd into project directory
+    2. run: 'guard' in a console window (for more details see https://github.com/guard/guard)
+    3. write specs in ./spec directory
+    4. write application code in ./src directory
+
+==CAAT and Coffee controversy
+
+Fun fact: this project is kitsch. Observe: the principle behind CAAT is to use exactly the same piece of code everywhere; and here we're putting on top CoffeScript, a language that compiles into JavaScript. Truly barbaric.
