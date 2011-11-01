@@ -39,6 +39,7 @@ class Player extends CAAT.Actor
     adjusted = Math.max(Math.min(v,@maxDistance), - @maxDistance)
     adjusted = adjusted - @friction if adjusted > 0
     adjusted = adjusted + @friction if adjusted < 0
+    adjusted = 0 if Math.abs(adjusted) < 0.3
     adjusted
       
     
