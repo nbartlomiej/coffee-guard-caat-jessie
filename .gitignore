@@ -6,3 +6,6 @@ node_modules
 # Vim temporary files.
 *.swp
 *.swo
+
+# JavaScript files built from CoffeeScript
+build/*
