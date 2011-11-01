@@ -1,9 +1,9 @@
 class Application
 
-  constructor: ->
-    @scenes = []
+  constructor: (document) ->
     @width  = 700
     @height = 500
+    @scenes     = []
     @imagesUrls = []
     @director = @embedApplication(document)
 
