@@ -1,6 +1,6 @@
 class Application
 
-  constructor: () ->
+  constructor: ->
     this.scenes = []
     this.width  = 700
     this.height = 500
@@ -48,7 +48,7 @@ class Application
         CAAT.loop(60);
     );
 
-window?.addEventListener( 'load', () -> 
+window?.addEventListener( 'load', -> 
   application = new Application(document)
   application.run()
 )
