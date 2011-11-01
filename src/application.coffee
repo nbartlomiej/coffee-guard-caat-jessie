@@ -1,6 +1,12 @@
 class Application
-  #  This function will be called to let you define new scenes that will be
-  #  shown after the splash screen.
+
+  constructor: () ->
+    this.scenes = []
+    this.width  = 700
+    this.height = 500
+    this.imagesUrls = []
+    this.director = this.embedApplication(document)
+
   createScenes: (director) ->
     scene = director.createScene()
     scene.addChild(
@@ -11,30 +17,40 @@ class Application
       .setFillStyle('rgb(0,0,0)')
     )
 
-# Startup it all up when the document is ready.
-# Change for your favorite frameworks initialization code.
+  createCanvasContainer: (document) ->
+    this.canvasContainer = document.createElement('div');
+    document.body.appendChild(this.canvasContainer);
+    this.canvasContainer
+
+  embedApplication: (document) ->
+    canvasContainer = this.createCanvasContainer(document)    
+    director = new CAAT.Director()
+      .initialize(this.width, this.height, undefined)
+    canvasContainer.appendChild( director.canvas );
+    director
+
+  run: (document) ->
+    new CAAT.ImagePreloader().loadImages( this.imagesUrls, (counter, images) =>
+      if counter==images.length
+        this.director.emptyScenes();
+        this.director.setImagesCache(images);
+        this.createScenes(this.director);
+
+        this.director.easeIn(
+          0,
+          CAAT.Scene.prototype.EASE_SCALE,
+          2000,
+          false,
+          CAAT.Actor.prototype.ANCHOR_CENTER,
+          new CAAT.Interpolator().createElasticOutInterpolator(2.5, .4)
+        );
+
+        CAAT.loop(60);
+    );
+
 window?.addEventListener( 'load', () -> 
-  application = new Application
-  CAAT.modules.initialization.init(
-    # canvas will be 800x600 pixels
-    700, 500,
-
-    # and will be added to the end of document. set an id of a canvas or div
-    # element
-    undefined,
-    
-    # load these images and set them up for non splash scenes.
-    # image elements must be of the form:
-    # {id:'<unique string id>',    url:'<url to image>'}
-    #
-    # No images can be set too.
-    [
-    ],
-
-    # onEndSplash callback function.
-    # Create your scenes on this method.
-    application.createScenes
-  )
+  application = new Application(document)
+  application.run()
 )
 
 (exports ? this).Application = Application
