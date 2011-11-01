@@ -19,9 +19,14 @@ class Application
 
   embedApplication: (document) ->
     canvasContainer = @createCanvasContainer(document)    
-    director = new CAAT.Director()
-      .initialize(@width, @height, undefined)
-    canvasContainer.appendChild( director.canvas );
+    # trying the canvas approach
+    try
+      director = new CAAT.Director().initialize(@width, @height, undefined)
+      canvasContainer.appendChild( director.canvas );
+    # if not, switching to css
+    catch error
+      director = new CAAT.Director().initialize(@width, @height, canvasContainer)
+
     director
 
   run: (document) ->

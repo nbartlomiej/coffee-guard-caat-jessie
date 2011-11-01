@@ -18,14 +18,13 @@ class Scene extends CAAT.Scene
       # if @hero.moveLeft
       #   @hero.setLocation(@hero.x-1, @hero.y)
 
-class Player extends CAAT.ShapeActor
+class Player extends CAAT.Actor
   constructor: ->
     super
     @initializeShape()
     @initializeDisplacement()
 
   initializeShape: ->
-    @setShape(CAAT.ShapeActor.prototype.SHAPE_CIRCLE)
     @setSize(20,20)
     @setFillStyle('rgb(255,0,0)')
 

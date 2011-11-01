@@ -1,5 +1,18 @@
-var jessie = require('jessie')
-jessie.sugar()
+var jessie = require('jessie');
+jessie.sugar();
+
+// TODO: switch to including the third party JavaScript files (in the same way
+// browser does) and erase appended code.
+// maybe use the script below:
+// function include(path) {
+//   var promise = new process.Promise();
+//   posix.cat(path).addCallback(function (data) {
+//     promise.emitSuccess(eval(data));
+//   }).addErrback(function () {
+//     promise.emitError();
+//   });
+//   return promise;
+// }
 
 // Stubs for DOM objects (not present in node).
 
@@ -15,6 +28,7 @@ window = {
 document = {
 
   createElement: function(){ return {
+    style: {},
     getContext: function(){ return {
       globalAlpha:  function(){},
       clearRect:    function(){},
@@ -39,7 +53,10 @@ document = {
 
 // Globally requiring CAAT.
 
-CAAT = require('./../lib/caat.js').CAAT;
+CAAT = require('./../lib/caat-css.js').CAAT;
+
+// use the following script to work with Canvas
+// CAAT = require('./../lib/caat-css.js').CAAT;
 
 // Custom Jasmine matchers.
 
