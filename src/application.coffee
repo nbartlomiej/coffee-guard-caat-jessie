@@ -1,11 +1,11 @@
 class Application
 
   constructor: ->
-    this.scenes = []
-    this.width  = 700
-    this.height = 500
-    this.imagesUrls = []
-    this.director = this.embedApplication(document)
+    @scenes = []
+    @width  = 700
+    @height = 500
+    @imagesUrls = []
+    @director = @embedApplication(document)
 
   createScenes: (director) ->
     scene = director.createScene()
@@ -18,25 +18,25 @@ class Application
     )
 
   createCanvasContainer: (document) ->
-    this.canvasContainer = document.createElement('div');
-    document.body.appendChild(this.canvasContainer);
-    this.canvasContainer
+    canvasContainer = document.createElement('div');
+    document.body.appendChild(canvasContainer);
+    canvasContainer
 
   embedApplication: (document) ->
-    canvasContainer = this.createCanvasContainer(document)    
+    canvasContainer = @createCanvasContainer(document)    
     director = new CAAT.Director()
-      .initialize(this.width, this.height, undefined)
+      .initialize(@width, @height, undefined)
     canvasContainer.appendChild( director.canvas );
     director
 
   run: (document) ->
-    new CAAT.ImagePreloader().loadImages( this.imagesUrls, (counter, images) =>
+    new CAAT.ImagePreloader().loadImages( @imagesUrls, (counter, images) =>
       if counter==images.length
-        this.director.emptyScenes();
-        this.director.setImagesCache(images);
-        this.createScenes(this.director);
+        @director.emptyScenes();
+        @director.setImagesCache(images);
+        @createScenes(@director);
 
-        this.director.easeIn(
+        @director.easeIn(
           0,
           CAAT.Scene.prototype.EASE_SCALE,
           2000,
