@@ -3,8 +3,8 @@ Scene = require('./../src/scene.coffee').Scene if exports?
 class Application
 
   constructor: (document) ->
-    @width  = 700
-    @height = 500
+    @height  = 480
+    @width = 320
     @scenes     = [new Scene]
     @imagesUrls = []
     @director = @embedApplication(document)
@@ -40,7 +40,7 @@ class Application
           new CAAT.Interpolator().createElasticOutInterpolator(2.5, .4)
         );
 
-        CAAT.loop(60);
+        CAAT.loop(30);
     );
 
 window?.addEventListener( 'load', -> 
