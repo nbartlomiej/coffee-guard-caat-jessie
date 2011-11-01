@@ -1,20 +1,20 @@
 class Scene extends CAAT.Scene
-  constructor: ->
+  constructor: (@configuration) ->
     super
 
-    @hero = new Player
+    @hero = new Player(this)
     @hero.setLocation(150,230)
     @addChild(@hero)
 
     new KeyboardBridge(@hero)
-    gyro = new GyroBridge(@hero)
+    gyro = new GyroBridge(@hero) if @configuration.os != 'Mac'
 
     @onRenderEnd = =>
-      # gyro.updateTargetDirectionFromGyro()
+      gyro?.updateTargetDirectionFromGyro()
       @hero.applyDirections()
 
 class Player extends CAAT.Actor
-  constructor: ->
+  constructor: (@scene)->
     super
     @initializeShape()
     @initializeDisplacement()
@@ -56,7 +56,7 @@ class GyroBridge
         @target.directionFromGyro.x = -1
     else
       @target.directionFromGyro.x = 0
-    currentBeta = CAAT.rotationRate.beta
+    currentBeta = CAAT.rotationRate.beta - 60
     if Math.abs(currentBeta) > @sensivity
       if currentBeta > 0
         @target.directionFromGyro.y =  1

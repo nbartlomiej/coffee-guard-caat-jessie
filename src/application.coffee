@@ -1,13 +1,18 @@
 Scene = require('./../src/scene.coffee').Scene if exports?
 
+class Configuration
+  constructor: (@width, @height, @os) ->
+
 class Application
 
   constructor: (document) ->
-    @height  = 480
-    @width = 320
-    @scenes     = [new Scene]
-    @imagesUrls = []
+    @width  = 320
+    @height = 480
     @director = @embedApplication(document)
+
+    @imagesUrls = []
+    @configuration = new Configuration( @width, @height, @director.getOSName())
+    @scenes     = [new Scene(@configuration)]
 
   createScenes: (director) ->
     director.addScene(@scenes.pop())
