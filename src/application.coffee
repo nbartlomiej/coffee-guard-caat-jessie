@@ -1,21 +1,16 @@
+Scene = require('./../src/scene.coffee').Scene if exports?
+
 class Application
 
   constructor: (document) ->
     @width  = 700
     @height = 500
-    @scenes     = []
+    @scenes     = [new Scene]
     @imagesUrls = []
     @director = @embedApplication(document)
 
   createScenes: (director) ->
-    scene = director.createScene()
-    scene.addChild(
-      new CAAT.ShapeActor()
-      .setShape(CAAT.ShapeActor.prototype.SHAPE_CIRCLE)
-      .setLocation(325,225)
-      .setSize(50,50)
-      .setFillStyle('rgb(0,0,0)')
-    )
+    director.addScene(@scenes.pop())
 
   createCanvasContainer: (document) ->
     canvasContainer = document.createElement('div');

@@ -1,7 +1,5 @@
 Application = require('./../src/application.coffee').Application
 
-# TODO: make the application stub more modular
-
 describe 'application', ->
   application = null
 
