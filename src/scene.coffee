@@ -27,21 +27,32 @@ class Player extends CAAT.Actor
     @directionFromKeys = {x:0, y:0}
     @directionFromGyro = {x:0, y:0}
     @velocity          = {x:0, y:0}
-    @maxDistance = 5
+    @maxSpeed = 10
     @friction = 0.3
 
   applyDamping: (v) ->
-    adjusted = Math.max(Math.min(v,@maxDistance), - @maxDistance)
+    adjusted = Math.max(Math.min(v,@maxSpeed), - @maxSpeed)
     adjusted = adjusted - @friction if adjusted > 0
     adjusted = adjusted + @friction if adjusted < 0
-    adjusted = 0 if Math.abs(adjusted) < 0.3
+    adjusted = 0 if Math.abs(adjusted) < @friction
     adjusted
       
+  keepInGameX: (x, velocity) ->
+    width = @scene.configuration.width
+    if (x + velocity.x > width) || (x + velocity.x < 0)
+      velocity.x = 0.8 * (- velocity.x)
+    Math.min(Math.max(x + velocity.x, 1), width-1)
     
+  keepInGameY: (y, velocity) ->
+    height = @scene.configuration.height
+    if (y + velocity.y > height) || (y + velocity.y < 0)
+      velocity.y = 0.7 * (- velocity.y)
+    Math.min(Math.max(y + velocity.y, 1), height-1)
+
   applyDirections: ->
     @velocity.x = @applyDamping(@velocity.x+@directionFromKeys.x+@directionFromGyro.x)
     @velocity.y = @applyDamping(@velocity.y+@directionFromKeys.y+@directionFromGyro.y)
-    @setLocation( @x + @velocity.x, @y + @velocity.y )
+    @setLocation( @keepInGameX(@x , @velocity), @keepInGameY(@y , @velocity) )
 
 class GyroBridge
   constructor: (@target) ->
