@@ -10,13 +10,8 @@ class Scene extends CAAT.Scene
     gyro = new GyroBridge(@hero)
 
     @onRenderEnd = =>
-      gyro.updateTargetDirectionFromGyro()
+      # gyro.updateTargetDirectionFromGyro()
       @hero.applyDirections()
-
-
-      # @hero.setLocation(2*(CAAT.rotationRate.gamma)+100, 100)
-      # if @hero.moveLeft
-      #   @hero.setLocation(@hero.x-1, @hero.y)
 
 class Player extends CAAT.Actor
   constructor: ->
@@ -61,6 +56,14 @@ class GyroBridge
         @target.directionFromGyro.x = -1
     else
       @target.directionFromGyro.x = 0
+    currentBeta = CAAT.rotationRate.beta
+    if Math.abs(currentBeta) > @sensivity
+      if currentBeta > 0
+        @target.directionFromGyro.y =  1
+      else
+        @target.directionFromGyro.y = -1
+    else
+      @target.directionFromGyro.y = 0
 
 
 
