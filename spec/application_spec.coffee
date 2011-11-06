@@ -22,13 +22,3 @@ describe 'application', ->
       document = {createElement: -> null}
       application.run(document)
 
-  describe 'createCanvasContainer()', ->
-    it 'creates element, appends it to document', ->
-      element = jasmine.createSpy('element')
-      document = { createElement: (-> element), body: { appendChild: (-> null) } }
-      spyOn(document.body, 'appendChild')
-      application.createCanvasContainer(document)
-      expect(document.body.appendChild).toHaveBeenCalledWith(element)
-
-  describe 'embedApplication()', ->
-

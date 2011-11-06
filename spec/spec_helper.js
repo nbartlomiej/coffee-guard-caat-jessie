@@ -2,7 +2,7 @@ var jessie = require('jessie');
 jessie.sugar();
 
 // TODO: switch to including the third party JavaScript files (in the same way
-// browser does) and erase appended code.
+// browser does) and erase code appended to third party JavaScript files
 // maybe use the script below:
 // function include(path) {
 //   var promise = new process.Promise();
@@ -25,10 +25,8 @@ window = {
   addEventListener: function(){}
 };
 
-document = {
-
-  createElement: function(){ return {
-    style: {},
+var elementStub = function(){ return {
+  style: {},
     getContext: function(){ return {
       globalAlpha:  function(){},
       clearRect:    function(){},
@@ -39,16 +37,17 @@ document = {
       restore:      function(){},
       fill:         function(){}
     }; },
-
     addEventListener: function(){},
     appendChild:      function(){}
-  }; },
+}; };
 
+document = {
+  getElementById: elementStub,
+  createElement: elementStub,
   body: {
     appendChild: function(){},
     globalAlpha: function(){}
   }
-
 };
 
 // Globally requiring CAAT.

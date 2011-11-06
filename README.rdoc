@@ -2,7 +2,7 @@
 
 ==About
 
-Kickstart HTML5 game project bundling CAAT, CoffeeScript, Jessie and Guard.
+Kickstart HTML5 project bundling CAAT, CoffeeScript, Jessie and Guard.
 
 Why use such set of tools?
 
