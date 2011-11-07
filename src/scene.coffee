@@ -3,7 +3,7 @@ class Scene extends CAAT.Scene
     super
 
     @score = document.getElementById('score')
-    @score.innerText = "0"
+    @score.textContent = "0"
 
     @player = new Player(this)
     @player.setLocation(150,230)
@@ -22,8 +22,8 @@ class Scene extends CAAT.Scene
   collides: (a, b) ->
     (a.x>b.x-a.width && a.x<b.x+b.width) && (a.y>b.y-b.height && a.y<b.y+b.height)
 
-  getScore: -> parseInt(@score.innerText)
-  incrementScore: -> @score.innerText = ""+(@getScore()+1)
+  getScore: -> parseInt(@score.textContent)
+  incrementScore: -> @score.textContent = ""+(@getScore()+1)
 
 
   addEnemy: ->
@@ -40,7 +40,7 @@ class Scene extends CAAT.Scene
     else @addChild(new CustomSpeedEnemy(this, 0.5))
 
   resetGame: ->
-    @score.innerText = "0"
+    @score.textContent = "0"
     @addEnemy()
 
 class Controllable extends CAAT.Actor
@@ -96,8 +96,8 @@ class Player extends Controllable
 
   act: ->
     super()
-    @scene.childrenList.filter( (element) => element != this).forEach( (element) =>
-      if @scene.collides(this, element)
+    @scene.childrenList.forEach( (element) =>
+      if (element != this) && (@scene.collides(this, element))
         element.caught()
         @scene.incrementScore()
         @scene.addEnemy()
