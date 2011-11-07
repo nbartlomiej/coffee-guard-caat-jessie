@@ -12,11 +12,11 @@
     <link href='http://fonts.googleapis.com/css?family=Amatic+SC:700' rel='stylesheet' type='text/css'>
     <style type='text/css'>
       body {
+        font-size: 12px;
         background: #ccc;
+        font-family: 'Helvetica' 'Arial' 'sans';
       }
       .content {
-        font-family: 'Helvetica' 'Arial' 'sans';
-        font-size: 12px;
         text-align: justify;
         margin: 0 auto;
         width: 320px;
@@ -33,15 +33,19 @@
       }
       a {
         color: #888;
+        text-decoration: none;
       }
-      #menu {
-        margin: 20px 0;
+      a:hover {
+        text-decoration: underline;
+      }
+      #menu a {
+        color: #888;
       }
       #wrapper {
         background: #fff;
         margin: 0 auto;
         width: 320px;
-        height: 480px;
+        height: 380px;
         -webkit-border-radius: 5px;
         -moz-border-radius: 5px;
         border-radius: 5px;
@@ -52,10 +56,9 @@
         color: #999;
       }
       #top {
-        color: #F3EFEF;
-        font-size: 300px;
-        margin-top: -520px;
+        margin-top: 15px;
         text-align: center;
+        color: #FFF;
       }
     </style>
   </head>
@@ -63,6 +66,9 @@
     <a href="https://github.com/nbartlomiej/coffee-guard-caat-jessie">
       <img style="position: absolute; top: 0; right: 0; border: 0;" src="https://a248.e.akamai.net/assets.github.com/img/7afbc8b248c68eb468279e8c17986ad46549fb71/687474703a2f2f73332e616d617a6f6e6177732e636f6d2f6769746875622f726962626f6e732f666f726b6d655f72696768745f6461726b626c75655f3132313632312e706e67" alt="Fork me on GitHub">
     </a>
+    <div id='menu'>
+      <a href='index-css.html'>switch to CSS/DOM version</a>
+    </div>
     <div class='content'>
       <h1>Coffee Guard CAAT Jessie</h1>
       <div id='description'>
@@ -78,13 +84,9 @@
       </div>
       <div id='score'>
       </div>
-      <div id='menu'>
-        <a href='index.html'>CSS/DOM version</a>
-        <a href='index-css.html'>CANVAS version</a>
+      <div id='top'>
+        &nbsp;
       </div>
-    </div>
-    <div id='top'>
-      &nbsp;
     </div>
   </body>
 </html>

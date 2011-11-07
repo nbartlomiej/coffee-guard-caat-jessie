@@ -22,13 +22,13 @@ class Scene extends CAAT.Scene
 
   # Tests whether two objects collide with themselves.
   collides: (a, b) ->
-    (a.x>b.x-a.width && a.x<b.x+b.width) && (a.y>b.y-b.height && a.y<b.y+b.height)
+    (a.x>b.x-a.width && a.x<b.x+b.width) && (a.y>b.y-a.height && a.y<b.y+b.height)
 
   getScore: -> parseInt(@score.textContent)
   incrementScore: -> @score.textContent = ""+(@getScore()+1)
 
-  getTopScore: -> parseInt(@topScore.innerText) || 0
-  setTopScore: (value) -> @topScore.innerText = ""+value
+  getTopScore: -> parseInt(@topScore.textContent) || 0
+  setTopScore: (value) -> @topScore.textContent = ""+value
 
   addEnemy: ->
     score = @getScore()
@@ -42,9 +42,11 @@ class Scene extends CAAT.Scene
     else if score > 2 then @addChild(new CustomSpeedEnemy(this, 0.8))
     else if score > 1 then @addChild(new CustomSpeedEnemy(this, 0.6))
     else @addChild(new CustomSpeedEnemy(this, 0.5))
+    @setTopScore(score) if score > @getTopScore() && score > 0
 
   resetGame: ->
     @score.textContent = "0"
+    @player.reset()
     @addEnemy()
 
 class Controllable extends CAAT.Actor
@@ -95,14 +97,18 @@ class Player extends Controllable
     @initializeShape()
 
   initializeShape: ->
-    @setSize(20,20)
-    @setFillStyle('rgb(255,0,0)')
+    @setSize(30,30)
+    @setFillStyle('rgb(0,0,0)')
+
+  boost: -> @maxSpeed += 0.1
+  reset: -> @maxSpeed = 3
 
   act: ->
     super()
     @scene.childrenList.forEach( (element) =>
       if (element != this) && (@scene.collides(this, element))
         element.caught()
+        @boost()
         @scene.incrementScore()
         @scene.addEnemy()
     )
@@ -159,11 +165,11 @@ class PlainEnemy extends CAAT.Actor
     @initializeShape()
     @act(start)
 
-  initializeShape: ->
-    @setSize(20,20)
-    @setFillStyle('rgb(0,0,0)')
-
   random: (v) -> Math.round(Math.random()*v)
+
+  initializeShape: ->
+    @setSize(30,30)
+    @setFillStyle('rgb('+(64+@random(100))+','+(64+@random(100))+','+(64+@random(100))+')')
 
   createPath: ->
     scene_width  = @scene.configuration.width

@@ -7,7 +7,7 @@ class Application
 
   constructor: (document) ->
     @width  = 320
-    @height = 480
+    @height = 380
     @director = @embedApplication(document)
 
     @imagesUrls = []
