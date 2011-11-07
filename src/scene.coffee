@@ -5,8 +5,6 @@ class Scene extends CAAT.Scene
     @score = document.getElementById('score')
     @score.innerText = "0"
 
-    @topScore = document.getElementById('top')
-
     @player = new Player(this)
     @player.setLocation(150,230)
     @addChild(@player)
@@ -27,8 +25,6 @@ class Scene extends CAAT.Scene
   getScore: -> parseInt(@score.innerText)
   incrementScore: -> @score.innerText = ""+(@getScore()+1)
 
-  getTopScore: -> parseInt(@topScore.innerText) || 0
-  setTopScore: (value) -> @topScore.innerText = ""+value
 
   addEnemy: ->
     score = @getScore()
