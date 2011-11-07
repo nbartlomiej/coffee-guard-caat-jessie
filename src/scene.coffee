@@ -38,93 +38,10 @@ class Scene extends CAAT.Scene
     else if score > 2 then @addChild(new CustomSpeedEnemy(this, 0.8))
     else if score > 1 then @addChild(new CustomSpeedEnemy(this, 0.6))
     else @addChild(new CustomSpeedEnemy(this, 0.5))
-    @setTopScore(score) if score > @getTopScore() && score > 12
 
   resetGame: ->
     @score.innerText = "0"
     @addEnemy()
-
-class PlainEnemy extends CAAT.Actor
-  constructor: (@scene, start=0) ->
-    super
-    @initializeShape()
-    @act(start)
-
-  initializeShape: ->
-    @setSize(20,20)
-    @setFillStyle('rgb(0,0,0)')
-
-  random: (v) -> Math.round(Math.random()*v)
-
-  createPath: ->
-    scene_width  = @scene.configuration.width
-    scene_height = @scene.configuration.height
-    column = @random(scene_width-@width)
-    [start_x,start_y] = [column, -@height]
-    # "column+1" is a hack. When actors follow straight path the canvas
-    # renderer shows shaking.
-    [end_x,end_y]     = [column+1, scene_height + @height]
-    new CAAT.Path()
-      .beginPath(start_x, start_y)
-      .addCubicTo(start_x, start_y, end_x, end_y, end_x, end_y)
-      .endPath()
-
-  speed: -> 1
-
-  flightTime: -> (1/@speed()) * 1000 * 2
-
-  act: ()->
-    @addBehavior(
-      new CAAT.PathBehavior()
-        .setPath(@createPath())
-        .setFrameTime(@scene.time, @flightTime() )
-        .setAutoRotate(true)
-        .addListener({ behaviorExpired: (behavior, time, actor) =>
-          @scene.resetGame()
-        })
-    )
-
-  caught: ->
-    @setLocation( -@width, -@height)
-    @setOutOfFrameTime()
-
-class CustomSpeedEnemy extends PlainEnemy
-  constructor: (@scene, @desiredSpeed) ->
-    super(@scene)
-  
-  speed: -> @desiredSpeed
-
-class LinearPathEnemy extends CustomSpeedEnemy
-  constructor: (@scene, @desiredSpeed) ->
-    super(@scene, @desiredSpeed)
-
-  createPath: ->
-    scene_width  = @scene.configuration.width
-    scene_height = @scene.configuration.height
-    column = @random(scene_width-@width)
-    [start_x,start_y] = [column, -@height]
-    # "column+1" is a hack. When actors follow straight path the canvas
-    # renderer shows shaking.
-    [end_x,end_y] = [Math.min(scene_width-@width, Math.max(column+@random(100)-50, 0)), scene_height + @height]
-    new CAAT.Path()
-      .beginPath(start_x, start_y)
-      .addCubicTo(start_x, start_y, end_x, end_y, end_x, end_y)
-      .endPath()
-
-class PathEnemy extends CustomSpeedEnemy
-  constructor: (@scene, @desiredSpeed) ->
-    super(@scene, @desiredSpeed)
-
-  createPath: ->
-    space_width  = @scene.configuration.width - @width
-    space_height = @scene.configuration.height + @height
-    new CAAT.Path()
-      .beginPath(@random(space_width), 0 - @height)
-      .addCubicTo(
-        @random(space_width), @random(space_height),
-        @random(space_width), @random(space_height),
-        @random(space_width), space_height)
-      .endPath()
 
 class Controllable extends CAAT.Actor
   constructor: (@scene) ->
@@ -231,5 +148,85 @@ class KeyboardBridge
 
   keyDown: (a) -> a == 'down'
   keyUp:   (a) -> a == 'up'
+
+class PlainEnemy extends CAAT.Actor
+  constructor: (@scene, start=0) ->
+    super
+    @initializeShape()
+    @act(start)
+
+  initializeShape: ->
+    @setSize(20,20)
+    @setFillStyle('rgb(0,0,0)')
+
+  random: (v) -> Math.round(Math.random()*v)
+
+  createPath: ->
+    scene_width  = @scene.configuration.width
+    scene_height = @scene.configuration.height
+    column = @random(scene_width-@width)
+    [start_x,start_y] = [column, -@height]
+    # "column+1" is a hack. When actors follow straight path the canvas
+    # renderer shows shaking.
+    [end_x,end_y]     = [column+1, scene_height + @height]
+    new CAAT.Path()
+      .beginPath(start_x, start_y)
+      .addCubicTo(start_x, start_y, end_x, end_y, end_x, end_y)
+      .endPath()
+
+  speed: -> 1
+
+  flightTime: -> (1/@speed()) * 1000 * 2
+
+  act: ()->
+    @addBehavior(
+      new CAAT.PathBehavior()
+        .setPath(@createPath())
+        .setFrameTime(@scene.time, @flightTime() )
+        .setAutoRotate(true)
+        .addListener({ behaviorExpired: (behavior, time, actor) =>
+          @scene.resetGame()
+        })
+    )
+
+  caught: ->
+    @setLocation( -@width, -@height)
+    @setOutOfFrameTime()
+
+class CustomSpeedEnemy extends PlainEnemy
+  constructor: (@scene, @desiredSpeed) ->
+    super(@scene)
+  
+  speed: -> @desiredSpeed
+
+class LinearPathEnemy extends CustomSpeedEnemy
+  constructor: (@scene, @desiredSpeed) ->
+    super(@scene, @desiredSpeed)
+
+  createPath: ->
+    scene_width  = @scene.configuration.width
+    scene_height = @scene.configuration.height
+    column = @random(scene_width-@width)
+    [start_x,start_y] = [column, -@height]
+    [end_x,end_y] = [Math.min(scene_width-@width, Math.max(column+@random(100)-50, 0)), scene_height + @height]
+    new CAAT.Path()
+      .beginPath(start_x, start_y)
+      .addCubicTo(start_x, start_y, end_x, end_y, end_x, end_y)
+      .endPath()
+
+class PathEnemy extends CustomSpeedEnemy
+  constructor: (@scene, @desiredSpeed) ->
+    super(@scene, @desiredSpeed)
+
+  createPath: ->
+    space_width  = @scene.configuration.width - @width
+    space_height = @scene.configuration.height + @height
+    new CAAT.Path()
+      .beginPath(@random(space_width), 0 - @height)
+      .addCubicTo(
+        @random(space_width), @random(space_height),
+        @random(space_width), @random(space_height),
+        @random(space_width), space_height)
+      .endPath()
 
 (exports ? this).Scene = Scene
