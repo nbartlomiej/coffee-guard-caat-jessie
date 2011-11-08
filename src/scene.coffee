@@ -46,7 +46,6 @@ class Scene extends CAAT.Scene
 
   resetGame: ->
     @score.textContent = "0"
-    @player.reset()
     @addEnemy()
 
 class Controllable extends CAAT.Actor
@@ -100,15 +99,11 @@ class Player extends Controllable
     @setSize(30,30)
     @setFillStyle('rgb(0,0,0)')
 
-  boost: -> @maxSpeed += 0.1
-  reset: -> @maxSpeed = 3
-
   act: ->
     super()
     @scene.childrenList.forEach( (element) =>
       if (element != this) && (@scene.collides(this, element))
         element.caught()
-        @boost()
         @scene.incrementScore()
         @scene.addEnemy()
     )
