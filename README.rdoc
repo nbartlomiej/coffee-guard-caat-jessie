@@ -4,6 +4,8 @@
 
 Kickstart HTML5 project bundling CAAT, CoffeeScript, Jessie and Guard.
 
+Live: http://nbartlomiej.github.com/coffee-guard-caat-jessie .
+
 Why use such set of tools?
 
 * CAAT is one very cool portable javascript framework (https://github.com/hyperandroid/CAAT).
