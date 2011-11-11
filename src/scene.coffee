@@ -58,7 +58,7 @@ class Controllable extends CAAT.Actor
     @directionFromAccelerometer = {x:0, y:0}
     @velocity          = {x:0, y:0}
     @maxSpeed = 5
-    @friction = 0.3
+    @friction = 0.15
 
   applyDamping: (v) ->
     adjusted = Math.max(Math.min(v,@maxSpeed), - @maxSpeed)
@@ -116,23 +116,25 @@ class Player extends Controllable
 
 class AccelerometerBridge
   constructor: (@target) ->
-    @sensivity = 10
+    @sensivity = 0
 
   updateTargetDirectionFromAccelerometer: () ->
     currentGamma = CAAT.rotationRate.gamma
     if Math.abs(currentGamma) > @sensivity
-      if currentGamma > 0
-        @target.directionFromAccelerometer.x =  1
-      else
-        @target.directionFromAccelerometer.x = -1
+      @target.directionFromAccelerometer.x = currentGamma / 20
+      # if currentGamma > 0
+      #   @target.directionFromAccelerometer.x =  1
+      # else
+      #   @target.directionFromAccelerometer.x = -1
     else
       @target.directionFromAccelerometer.x = 0
-    currentBeta = CAAT.rotationRate.beta - 50
+    currentBeta = CAAT.rotationRate.beta 
     if Math.abs(currentBeta) > @sensivity
-      if currentBeta > 0
-        @target.directionFromAccelerometer.y =  1
-      else
-        @target.directionFromAccelerometer.y = -1
+      @target.directionFromAccelerometer.y = currentBeta / 10
+      # if currentBeta > 0
+      #   @target.directionFromAccelerometer.y =  1
+      # else
+      #   @target.directionFromAccelerometer.y = -1
     else
       @target.directionFromAccelerometer.y = 0
 
