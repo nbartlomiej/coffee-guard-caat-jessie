@@ -10,6 +10,14 @@
     <link href='stylesheet.css' rel='stylesheet' type='text/css'>
   </head>
   <body>
+    <div id="fb-root"></div>
+    <script>(function(d, s, id) {
+        var js, fjs = d.getElementsByTagName(s)[0];
+          if (d.getElementById(id)) {return;}
+            js = d.createElement(s); js.id = id;
+              js.src = "//connect.facebook.net/en_US/all.js#xfbml=1";
+                fjs.parentNode.insertBefore(js, fjs);
+                }(document, 'script', 'facebook-jssdk'));</script>
     <a href="https://github.com/nbartlomiej/coffee-guard-caat-jessie">
       <img style="position: absolute; top: 0; right: 0; border: 0;" src="https://a248.e.akamai.net/assets.github.com/img/7afbc8b248c68eb468279e8c17986ad46549fb71/687474703a2f2f73332e616d617a6f6e6177732e636f6d2f6769746875622f726962626f6e732f666f726b6d655f72696768745f6461726b626c75655f3132313632312e706e67" alt="Fork me on GitHub">
     </a>
@@ -43,8 +51,18 @@
           0
         </span>
       </div>
-    <div id='menu'>
-    </div>
+
+      <div class='social-media'>
+        <div class='twitter'>
+          <a href="https://twitter.com/share" class="twitter-share-button" data-url="http://nbartlomiej.github.com/coffee-guard-caat-jessie" data-text="Kickstart HTML5 game template (for desktop & mobile browsers)" data-count="horizontal" data-related="nbartlomiej:Author of this little thing.">Tweet</a><script type="text/javascript" src="//platform.twitter.com/widgets.js"></script>
+        </div>
+        <div class='facebook'>
+          <div class="fb-like" data-send="false" data-layout="button_count" data-width="450" data-show-faces="true" data-font="verdana"></div>
+        </div>
+        <div class='self'>
+          by: <a target='_blank' href='http://twitter.com/nbartlomiej'>@nbartlomiej</a>
+        </div>
+      </div>
     </div>
   </body>
 </html>
