@@ -8,7 +8,7 @@ class Scene extends CAAT.Scene
     @topScore = document.getElementById('top')
 
     @player = new Player(this)
-    @player.setLocation(150,230)
+    @player.setLocation(150,330)
     @addChild(@player)
 
     @addEnemy()
@@ -57,7 +57,7 @@ class Controllable extends CAAT.Actor
     @directionFromKeys = {x:0, y:0}
     @directionFromAccelerometer = {x:0, y:0}
     @velocity          = {x:0, y:0}
-    @maxSpeed = 3
+    @maxSpeed = 5
     @friction = 0.3
 
   applyDamping: (v) ->
@@ -106,6 +106,12 @@ class Player extends Controllable
         element.caught()
         @scene.incrementScore()
         @scene.addEnemy()
+        @addBehavior(
+          new CAAT.ScaleBehavior()
+            .setValues( 1, 1.1, 1, 1.1, @width, @height )
+            .setFrameTime(@scene.time, 800 )
+            .setInterpolator(new CAAT.Interpolator().createElasticOutInterpolator(2.5, .4) )
+          )
     )
 
 class AccelerometerBridge
@@ -164,7 +170,7 @@ class PlainEnemy extends CAAT.Actor
 
   initializeShape: ->
     @setSize(30,30)
-    @setFillStyle('rgb('+(64+@random(100))+','+(64+@random(100))+','+(64+@random(100))+')')
+    @setFillStyle('rgb('+(55+@random(150))+','+(55+@random(150))+','+(55+@random(150))+')')
 
   createPath: ->
     scene_width  = @scene.configuration.width
@@ -184,6 +190,12 @@ class PlainEnemy extends CAAT.Actor
   flightTime: -> (1/@speed()) * 1000 * 2
 
   act: ()->
+    @addBehavior(
+      new CAAT.ScaleBehavior()
+        .setValues( 1, 1.1, 1, 1.1, @width, @height )
+        .setFrameTime(@scene.time, 1600 )
+        .setInterpolator(new CAAT.Interpolator().createElasticOutInterpolator(2.5, .4) )
+    )
     @addBehavior(
       new CAAT.PathBehavior()
         .setPath(@createPath())
