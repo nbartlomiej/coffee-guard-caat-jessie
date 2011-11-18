@@ -22,6 +22,7 @@ Dependencies: bundler gem, gems defined in the Gemfile, coffee-script local node
     2. bundle install
     3. npm install coffee-script
     4. npm install -g jessie
+    5. run 'guard', hit enter (a.k.a. compile and test)
 
 Workflow:
 
