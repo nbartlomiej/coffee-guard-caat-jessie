@@ -25,7 +25,9 @@ a {
 a:hover {
   text-decoration: underline;
 }
-
+#menu a {
+  color: #888;
+}
 #wrapper {
   background: #fff;
   margin: 0 auto;
@@ -61,29 +63,4 @@ a:hover {
 }
 #top {
   padding-left: 10px;
-}
-.social-media {
-  margin-top: 25px;
-}
-.social-media .self, .social-media .twitter, .social-media .facebook {
-  display: block;
-  float: left;
-  padding: 0px;
-  overflow: hidden;
-}
-.social-media .self{
-  padding-top: 5px;
-  width: 101px;
-  color: #aaa;
-  text-align: right;
-  padding-right: 5px;
-}
-.self a {
-  color: #999;
-}
-.social-media .facebook{
-  width: 106px;
-}
-.social-media .twitter{
-  width: 106px;
 }
