@@ -16,12 +16,11 @@ Why use such set of tools?
 
 ==Usage
 
-Dependencies: bundler gem, gems defined in the Gemfile, coffee-script local node package, jessie global node package; install with:
+Dependencies: bundler gem, gems defined in the Gemfile, local node packages: coffee-script and jessie; install with:
 
     1. gem install bundler
     2. bundle install
-    3. npm install coffee-script
-    4. npm install -g jessie
+    3. npm install
     5. run 'guard', hit enter (a.k.a. compile and test)
 
 Workflow:

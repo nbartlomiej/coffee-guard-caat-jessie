@@ -1,0 +1,8 @@
+{
+  "name" : "coffee-guard-caat-jessie"
+, "version" : "1.0.0"
+, "dependencies" : {
+    "coffee-script" : "1.1.2"
+  , "jessie" : "0.4.1"
+    }
+  }
