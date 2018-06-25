@@ -10,7 +10,7 @@ Why use such set of tools?
 
 * CAAT is one very cool portable javascript framework (https://github.com/hyperandroid/CAAT).
 * CoffeeScript is a way of making JavaScript concise (http://jashkenas.github.com/coffee-script/).
-* Jessie allows to run Jasmine specs in console (https://github.com/futuresimple/jessie) and Jasmine is a nice BDD framework for JavaScript (http://pivotal.github.com/jasmine/).
+* Jessie allows to run Jasmine specs in console (https://github.com/futuresimple/jessie) and Jasmine is a nice BDD framework for JavaScript (https://jasmine.github.io/).
 * Guard (https://github.com/guard/guard) auto-generates JavaScript files from CoffeeScript and auto-runs Jasmine specs through Jessie.
 * It's efficient!
 
